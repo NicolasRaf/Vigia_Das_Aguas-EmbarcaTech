@@ -64,7 +64,7 @@ void buttons_callback(uint gpio, uint32_t events) {
         ssd1306_show(&display);
 
         if (strcmp(currentScreenName, "Main Screen") == 0) {
-            currentScreenName = "Screen3";
+            currentScreenName = "Logs";
         } else {
             currentScreenName = "Main Screen";
         }

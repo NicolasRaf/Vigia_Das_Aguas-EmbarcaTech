@@ -1,8 +1,13 @@
 #include "ultrasonic.h"
 
-float averageDistance = 0;         // Valor médio calculado (usado para exibição)
-bool measuring = false;            // Flag indicando se uma medição está em andamento
-volatile bool startMeasurement = true;  // Flag setada pelo timer para iniciar a medição
+float averageDistance = 0;        
+bool measuring = false;            
+volatile bool startMeasurement = true;  
+int reading = 1;              
+int timeUntilNextRead = 1;     
+float lastReadings[NUM_READINGS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+int readingCount = 0;  
+int readingIndex = 0;   
 
 float measureDistance() {
     // Enviar pulso de 10µs para o TRIG
@@ -57,5 +62,50 @@ void ledFeedback(bool reading, float distance) {
     } else if (distance >= 40) {
         gpio_put(LED_RED_PIN, 0);
         gpio_put(LED_GREEN_PIN, 1);
+    }
+}
+
+void measurementControler() {
+    if (startMeasurement && !measuring) {
+        measuring = true;
+        printf("Iniciando a medição de distância...\n");
+
+        // Verifica se o sensor está ligado (reading == 1)
+        if (reading == 1) {
+            float newReading = measureDistance();
+            if (newReading != -1) {
+                // Armazena o novo valor no buffer circular
+                lastReadings[readingIndex] = newReading;
+                readingIndex = (readingIndex + 1) % NUM_READINGS;
+                if (readingCount < NUM_READINGS) {
+                    readingCount++;
+                }
+                // Calcula a média dos valores armazenados
+                float sum = 0;
+                for (int i = 0; i < readingCount; i++) {
+                    sum += lastReadings[i];
+                }
+                averageDistance = sum / readingCount;
+                printf("Nova medição: %.2f cm, média: %.2f cm\n", newReading, averageDistance);
+            } else {
+                printf("Erro na medição!\n");
+            }
+        } else {
+            printf("Sensor desligado, medição não efetuada.\n");
+        }
+        // Reseta as flags para a próxima medição
+        measuring = false;
+        startMeasurement = false;
+    }
+}
+
+void readingCounter() {
+    if (!measuring && reading) {
+        timeUntilNextRead--;
+        if (timeUntilNextRead < 0) {
+            timeUntilNextRead = 1;  // Reset do contador para 5 segundos
+            // Quando o tempo expira, seta a flag para iniciar a medição
+            startMeasurement = true;
+        }
     }
 }

@@ -12,7 +12,6 @@
 
 #define TRIG_PIN 17
 #define ECHO_PIN 16
-extern int reading;
 extern char *currentScreenName;
 
 void initializeSystem();

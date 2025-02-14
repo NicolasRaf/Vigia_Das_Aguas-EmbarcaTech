@@ -1,6 +1,4 @@
 #include "display.h"
-
-
 ssd1306_t display;
 
 DisplayScreenDict screens[MAX_SCREENS] = {
@@ -19,7 +17,7 @@ DisplayScreenDict screens[MAX_SCREENS] = {
     {
         "Main Screen", {
             {
-                {"=======================", 0, 0, 1},
+                {"===== Principal ======", 0, 0, 1},
                 {"", 0, 10, 1},
                 {"", 0, 20, 1},
                 {"", 0, 30, 1},
@@ -29,14 +27,14 @@ DisplayScreenDict screens[MAX_SCREENS] = {
         }
     },
     {
-        "Screen3", {
+        "Logs", {
             {
-                {"Tela 3 - Linha 1", 0, 0, 1},
-                {"Tela 3 - Linha 2", 0, 10, 1},
-                {"Tela 3 - Linha 3", 0, 20, 1},
-                {"Tela 3 - Linha 4", 0, 30, 1},
-                {"Tela 3 - Linha 5", 0, 40, 1},
-                {"Tela 3 - Linha 6", 0, 50, 1}
+                {"== Ultimos 10 Logs ====", 0, 0, 1},
+                {"", 0, 15, 1},
+                {"", 0, 25, 1},
+                {"", 0, 35, 1},
+                {"", 0, 45, 1},
+                {"", 0, 55, 1}
             }
         }
     }
