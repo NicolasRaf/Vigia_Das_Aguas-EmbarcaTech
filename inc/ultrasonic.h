@@ -1,7 +1,7 @@
 #ifndef ULTRASONIC_H
 #define ULTRASONIC_H
 
-
+#include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 #include "hardware/timer.h"
@@ -9,9 +9,12 @@
 
 #define TRIG_PIN 17
 #define ECHO_PIN 16
-#define BUTTON_PIN 5
 
-float mensureDistance();
-void ledFeedback(float distance);
+extern float averageDistance;
+extern bool measuring;
+extern volatile bool startMeasurement;
+
+float measureDistance();
+void ledFeedback(bool reading, float distance);
 
 #endif // ULTRASONIC_H

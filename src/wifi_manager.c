@@ -28,7 +28,7 @@ int initWifiConnection() {
     cyw43_arch_enable_sta_mode();
     
     if (connect_wifi() == -1) {
-        showText("Failed to connect.", 0, 30, 1, true);
+        //showText("Failed to connect.", 0, 30, 1, true);
         failureAction("Failed to connect.\n");
     } else {
         print_ip_address();
@@ -42,7 +42,7 @@ int connect_wifi() {
     printf("Connecting to Wi-Fi...\n");
 
     if (cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK, 10000)) {
-        showText("Failed to connect.", 0, 0, 1, true);
+        //showText("Failed to connect.", 0, 0, 1, true);
         failureAction("Failed to connect.\n");
         return -1;
     }
@@ -51,21 +51,21 @@ int connect_wifi() {
 }
 
 // Imprime o endereço IP
-void print_ip_address() {
-    // Obtém o endereço IP do estado da interface de rede
-    uint8_t *ip_address = (uint8_t*)&(cyw43_state.netif[0].ip_addr.addr);
+// void print_ip_address() {
+//     // Obtém o endereço IP do estado da interface de rede
+//     uint8_t *ip_address = (uint8_t*)&(cyw43_state.netif[0].ip_addr.addr);
 
-    // Buffer para armazenar o IP formatado como string
-    char formatedIP[32];
+//     // Buffer para armazenar o IP formatado como string
+//     char formatedIP[32];
 
-    // Formata o endereço IP em forma de string
-    snprintf(formatedIP, sizeof(formatedIP), "%d.%d.%d.%d",
-             ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
+//     // Formata o endereço IP em forma de string
+//     snprintf(formatedIP, sizeof(formatedIP), "%d.%d.%d.%d",
+//              ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
 
-    // Imprime o endereço IP no console
-    printf(formatedIP);
+//     // Imprime o endereço IP no console
+//     printf(formatedIP);
 
-    // Exibe o endereço IP no display OLED
-    showText("IP address:", 0, 44, 1, false);
-    showText(formatedIP, 0, 54, 1, false);
-}
+//     // Exibe o endereço IP no display OLED
+//     showText("IP address:", 0, 44, 1, false);
+//     showText(formatedIP, 0, 54, 1, false);
+// }

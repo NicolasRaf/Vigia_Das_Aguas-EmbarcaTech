@@ -37,6 +37,8 @@
     "raspberry-pi-pico.cmakePath": "${HOME}/.pico-sdk/cmake/v3.29.9/bin/cmake",
     "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja",
     "files.associations": {
+        "*.embeddedhtml": "html",
+        "diff": "diff",
         "gpio.h": "c",
         "stdlib.h": "c",
         "init.h": "c",
@@ -51,6 +53,10 @@
         "ultrasonic.h": "c",
         "server.h": "c",
         "music.h": "c",
-        "led_button.h": "c"
+        "led_button.h": "c",
+        "multicore.h": "c",
+        "cstdlib": "c",
+        "algorithm": "c",
+        "iterator": "c"
     }
 }

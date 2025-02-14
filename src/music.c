@@ -118,5 +118,5 @@ void playErrorSound() {
 
 void finishedMusic() {
     printf("Musica Finalizada");
-    showText("Musica Finalizada!", 0, 0, 1, true);
+    //showText("Musica Finalizada!", 0, 0, 1, true);
 }
