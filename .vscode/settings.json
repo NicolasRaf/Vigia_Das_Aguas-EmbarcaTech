@@ -57,6 +57,10 @@
         "multicore.h": "c",
         "cstdlib": "c",
         "algorithm": "c",
-        "iterator": "c"
+        "iterator": "c",
+        "leds_buttons.h": "c",
+        "cyw43_arch.h": "c",
+        "setup.h": "c",
+        "sound.h": "c"
     }
 }

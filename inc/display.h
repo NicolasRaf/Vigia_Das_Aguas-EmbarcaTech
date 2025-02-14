@@ -27,13 +27,14 @@ typedef struct {
 } DisplayScreen;
 
 typedef struct {
-    const char *name;
+    char *name;
     DisplayScreen screen;
 } DisplayScreenDict;
 
 extern ssd1306_t display;
 extern DisplayScreenDict screens[MAX_SCREENS];
 
+void initI2CDisplay();
 int initializeDisplay();
 void showScreen(DisplayScreen screen);
 void clearScreen();

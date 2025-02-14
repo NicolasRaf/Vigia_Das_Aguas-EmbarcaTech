@@ -1,9 +1,11 @@
 #include "server.h"
-#include "pico/cyw43_arch.h"
-#include "lwip/pbuf.h"
-#include "lwip/tcp.h"
-#include "display.h"
 
+void initHttpServer() {
+    struct tcp_pcb *pcb = tcp_new();
+    tcp_bind(pcb, IP_ADDR_ANY, 80);
+    pcb = tcp_listen(pcb);
+    tcp_accept(pcb, http_server_accept);
+}
 
 const char *html_page = "HTTP/1.1 200 OK\r\n"
                         "Content-Type: text/html\r\n\r\n"
@@ -37,7 +39,7 @@ err_t http_server_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t er
     } else if (strstr(data, "GET /?led=off")) {
         gpio_put(13, 0);
     } else if (strstr(data, "GET /?music=play")) {
-        playMusic();
+        playConfirmSound();
     }
 
     tcp_write(tpcb, html_page, strlen(html_page), TCP_WRITE_FLAG_COPY);

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
-#include "init.h"
+#include "setup.h"
 #include "ultrasonic.h"
 
 void updateScreen() {
@@ -19,7 +19,16 @@ void updateScreen() {
                     screens[i].screen.lines[3].text = timeText;
                 } else {
                     // Sensor ligado: mostra a média e o tempo restante para a próxima leitura
-                    sprintf(distanceText, "Dist. Media: %.2f cm", averageDistance);
+                    if (mode == 0){
+                        sprintf(distanceText, "Dist. Media: %.2f cm", averageDistance);
+                        distanceFeedback(reading, averageDistance);
+                    } else {
+                        int lastValueIndex = (readingIndex - 1 + NUM_READINGS) % NUM_READINGS;
+
+                        sprintf(distanceText, "Dist. Atual: %.2f m", lastReadings[lastValueIndex]);
+                        distanceFeedback(reading, lastReadings[lastValueIndex]);
+
+                    }
                     sprintf(timeText, "Prox leitura: %d seg", timeUntilNextRead);
                     screens[i].screen.lines[2].text = distanceText;
                     screens[i].screen.lines[3].text = timeText;
@@ -43,7 +52,6 @@ void updateScreen() {
             }
     
             // Feedback dos LEDs e exibição da tela (comum a todas as telas)
-            ledFeedback(reading, averageDistance);
             showScreen(screens[i].screen);
             break;
         }

@@ -5,7 +5,7 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 #include "hardware/timer.h"
-#include "led_button.h"
+#include "leds_buttons.h"
 
 #define TRIG_PIN 17
 #define ECHO_PIN 16
@@ -21,8 +21,8 @@ extern float lastReadings[]; // Buffer para armazenar os últimos valores lidos
 extern int readingCount;   // Quantidade de leituras armazenadas (máximo NUM_READINGS)
 extern int readingIndex;   // Índice para a próxima inserção no buffer
 
+void initHcsr04();
 float measureDistance();
-void ledFeedback(bool reading, float distance);
 void measurementControler();
 void readingCounter();
 

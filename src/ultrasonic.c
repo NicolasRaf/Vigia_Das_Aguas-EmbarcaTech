@@ -9,6 +9,17 @@ float lastReadings[NUM_READINGS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int readingCount = 0;  
 int readingIndex = 0;   
 
+void initHcsr04() {
+    gpio_init(TRIG_PIN);
+    gpio_set_dir(TRIG_PIN, GPIO_OUT);
+
+    // Inicia o sensor desligado
+    gpio_put(TRIG_PIN, 0);
+
+    gpio_init(ECHO_PIN);
+    gpio_set_dir(ECHO_PIN, GPIO_IN);
+}
+
 float measureDistance() {
     // Enviar pulso de 10µs para o TRIG
     gpio_put(TRIG_PIN, 1);
@@ -44,25 +55,6 @@ float measureDistance() {
     float distance_cm = (duration * 0.0343) / 2;
     
     return distance_cm;
-}
-
-void ledFeedback(bool reading, float distance) {
-    if (!reading) {
-        gpio_put(LED_RED_PIN, 0);
-        gpio_put(LED_GREEN_PIN, 0);
-        return;
-    }
-
-    if (distance >= 0 && distance < 20) {
-        gpio_put(LED_RED_PIN, 1);
-        gpio_put(LED_GREEN_PIN, 0);
-    } else if (distance >= 20 && distance < 40) {
-        gpio_put(LED_RED_PIN, 1);
-        gpio_put(LED_GREEN_PIN, 1);
-    } else if (distance >= 40) {
-        gpio_put(LED_RED_PIN, 0);
-        gpio_put(LED_GREEN_PIN, 1);
-    }
 }
 
 void measurementControler() {

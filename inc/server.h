@@ -4,9 +4,11 @@
 #include "pico/cyw43_arch.h"
 #include "lwip/pbuf.h"
 #include "lwip/tcp.h"
-#include "music.h"
+#include "sound.h"
+#include "display.h"
 
 // Prototipos das funções
+void initHttpServer();
 err_t http_server_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err);
 err_t http_server_accept(void *arg, struct tcp_pcb *newpcb, err_t err);
 

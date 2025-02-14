@@ -53,6 +53,7 @@ target_link_libraries(project_main
     pico_cyw43_arch_lwip_threadsafe_background
     pico_lwip
     pico-ssd1306
+    hardware_pwm
     )
 
 # Add the standard include files to the build
