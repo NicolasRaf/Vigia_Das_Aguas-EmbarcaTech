@@ -5,12 +5,9 @@
 #include "string.h"
 #include "hardware/gpio.h"
 #include "hardware/timer.h"
-
-#include "server.h"
 #include "display.h"
 #include "ultrasonic.h"
 #include "leds_buttons.h"
-#include "wifi_manager.h"
 #include "sound.h"
 
 #define TRIG_PIN 17

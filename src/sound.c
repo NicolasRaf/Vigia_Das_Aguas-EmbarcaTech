@@ -9,8 +9,6 @@ const int f5 = 698;
 const int g5 = 784;
 const int b4 = 466;
 
-
-
 int volume = 30; // Volume padrão (não usado diretamente na reprodução)
 bool isPlaying = false;
 int currentNoteIndex = 0;
@@ -72,7 +70,6 @@ bool soundCallback(struct repeating_timer *t) {
 }
 
 // Função para iniciar a reprodução de um som
-// Agora recebe também o volume desejado (0 a 100)
 void playSound(const int *notes, int count, int duration, int vol) {
     if (isPlaying) return; // Impede sobreposição
     
