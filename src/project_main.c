@@ -7,6 +7,7 @@
 void updateScreen() {
     char distanceText[30];
     char timeText[30];
+    char slopeText[30];
 
     for (int i = 0; i < MAX_SCREENS; i++) {
         if (strcmp(screens[i].name, currentScreenName) == 0) {
@@ -15,25 +16,47 @@ void updateScreen() {
                 if (reading == 0) {
                     sprintf(distanceText, "Leitura do sensor");
                     sprintf(timeText, "desligada!");
-                    screens[i].screen.lines[2].text = distanceText;
-                    screens[i].screen.lines[3].text = timeText;
+                    screens[i].screen.lines[1].text = distanceText;
+                    screens[i].screen.lines[2].text = timeText;
+
+                    for (int j = 3; j < MAX_LINES; j++) {
+                        screens[i].screen.lines[j].text = "";
+                    }
+
+                    distanceFeedback(reading, averageDistance);
                 } else {
+
                     // Sensor ligado: mostra a média e o tempo restante para a próxima leitura
-                    if (mode == 0){
+                    if (readingMode == 0){
                         sprintf(distanceText, "Dist. Media: %.2f cm", averageDistance);
                         distanceFeedback(reading, averageDistance);
-                    } else {
+
+                        screens[i].screen.lines[5].text = "";
+                    } else if (readingMode == 1) {
                         int lastValueIndex = (readingIndex - 1 + NUM_READINGS) % NUM_READINGS;
 
-                        sprintf(distanceText, "Dist. Atual: %.2f m", lastReadings[lastValueIndex]);
+                        sprintf(distanceText, "Dist. Atual: %.2f cm", lastReadings[lastValueIndex]);
                         distanceFeedback(reading, lastReadings[lastValueIndex]);
 
+                        screens[i].screen.lines[5].text = "- Sujeito a Ruido";
                     }
-                    sprintf(timeText, "Prox leitura: %d seg", timeUntilNextRead);
+
+                    if (timeUntilNextRead > 60) {
+                        sprintf(timeText, "Prox leitura: %d min", timeUntilNextRead / 60);
+                    } else {
+                     sprintf(timeText, "Prox leitura: %d seg", timeUntilNextRead);
+                    }
+                    sprintf(slopeText, "Tx de Aum.: %.1f cm/s", slope);
+
+                    screens[i].screen.lines[1].text = "";
                     screens[i].screen.lines[2].text = distanceText;
                     screens[i].screen.lines[3].text = timeText;
+                    screens[i].screen.lines[4].text = slopeText;
                 }
             } else if (strcmp(currentScreenName, "Logs") == 0) {
+                (readingMode) ? distanceFeedback(reading, averageDistance) : 
+                distanceFeedback(reading, lastReadings[(readingIndex - 1 + NUM_READINGS) % NUM_READINGS]);
+
                 static char logBuffer[5][23];  // Buffer com 23 caracteres para incluir '\0'
 
                 // Preencher as 5 linhas de log
@@ -49,6 +72,19 @@ void updateScreen() {
 
                     screens[i].screen.lines[j + 1].text = logBuffer[j];  // Coloca o texto na tela
                 }
+            }  else if (strcmp(currentScreenName, "Options") == 0) {
+                sprintf(distanceText, "Modo de operacao: %d", readingMode);
+                screens[i].screen.lines[1].text = distanceText;
+                char time[30];
+
+                if (readingTimes[currenteTimeOption] > 60) {
+                    sprintf(time, "%d min", readingTimes[currenteTimeOption] / 60);
+                } else {
+                    sprintf(time, "%d seg", readingTimes[currenteTimeOption]);
+                }
+
+                sprintf(timeText, "Delay: %s ", time);
+                screens[i].screen.lines[3].text = timeText;
             }
     
             // Feedback dos LEDs e exibição da tela (comum a todas as telas)

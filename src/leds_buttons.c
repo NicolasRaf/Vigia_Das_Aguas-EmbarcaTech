@@ -1,5 +1,7 @@
 #include "leds_buttons.h"
 
+int readingMode = 0;
+
 void initGpioButtonLeds() {
 
     gpio_init(LED_RED_PIN);
@@ -46,7 +48,20 @@ void buttons_callback(uint gpio, uint32_t events) {
     }
 
     if (gpio == BUTTON_A_PIN) {
-        reading = !reading;
+
+        if (currentScreenName == "Main Screen") {
+            readingMode = (readingMode + 1) % READ_MODES;
+
+            if (readingMode == 2) {  
+                reading = 0;
+            } else {
+                reading = 1;
+            }
+        } else if (currentScreenName == "Options") {
+            currenteTimeOption = (currenteTimeOption + 1) % TIMES_DELAY;
+            timeUntilNextRead = readingTimes[readingMode];
+        }
+        
 
     } else if (gpio == BUTTON_B_PIN) {
         // Trocar entre as telas

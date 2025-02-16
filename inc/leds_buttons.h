@@ -10,6 +10,8 @@
 #define LED_RED_PIN 13
 #define LED_GREEN_PIN 11
 
+extern int readingMode;
+
 void initGpioButtonLeds();
 void distanceFeedback(bool reading, float distance);
 void buttons_callback(uint gpio, uint32_t events);
