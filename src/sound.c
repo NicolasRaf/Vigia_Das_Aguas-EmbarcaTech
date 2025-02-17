@@ -23,9 +23,6 @@ void initSound() {
     gpio_init(speakPin1);
     gpio_set_dir(speakPin1, GPIO_OUT);
     
-    gpio_init(speakPin2);
-    gpio_set_dir(speakPin2, GPIO_OUT);
-    
     initPWM();
 }
 

@@ -10,7 +10,6 @@
 
 // Definindo os pinos do alto-falante
 #define speakPin1 21
-#define speakPin2 10
 
 // Definição das frequências das notas
 extern const int e5;    // 659 Hz
