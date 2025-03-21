@@ -5,6 +5,7 @@
 #include "string.h"
 #include "hardware/gpio.h"
 #include "hardware/timer.h"
+#include "wifi_manager.h"
 #include "display.h"
 #include "ultrasonic.h"
 #include "leds_buttons.h"

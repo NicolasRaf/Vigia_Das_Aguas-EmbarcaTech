@@ -6,10 +6,11 @@ int currentScreenIndex = 0;
 void initializeSystem() {
     stdio_init_all();
 
-    initSound();
-    initGpioButtonLeds();
     initI2CDisplay();
     initializeDisplay();
+    initWifi();
+    initSound();
+    initGpioButtonLeds();
     initHcsr04();
     initInterrupts();
     clearScreen();

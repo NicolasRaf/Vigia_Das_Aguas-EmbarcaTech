@@ -8,6 +8,7 @@ void updateScreen() {
     char distanceText[30];
     char timeText[30];
     char slopeText[30];
+    char wifiText[30];
 
     for (int i = 0; i < MAX_SCREENS; i++) {
         if (strcmp(screens[i].name, currentScreenName) == 0) {
@@ -84,7 +85,10 @@ void updateScreen() {
                 }
 
                 sprintf(timeText, "Delay: %s ", time);
-                screens[i].screen.lines[3].text = timeText;
+                sprintf(wifiText, "IP: %s", formatedIP);
+
+                screens[i].screen.lines[2].text = timeText;
+                screens[i].screen.lines[3].text = wifiText;
             }
     
             // Feedback dos LEDs e exibição da tela (comum a todas as telas)
@@ -97,12 +101,12 @@ void updateScreen() {
 
 int main() {
     initializeSystem();
-    currentScreenName = "Welcome Screen";
+
     showScreen(screens[0].screen);
-
     sleep_ms(3000);
-    currentScreenName = "Main Screen";
+    connectWifi();
 
+    currentScreenName = "Main Screen";
     while (true) {
         updateScreen();
     

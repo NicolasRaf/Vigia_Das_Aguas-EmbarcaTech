@@ -24,10 +24,10 @@ if (EXISTS ${picoVscode})
 endif()
 # ====================================================================================
 set(PICO_BOARD pico_w CACHE STRING "Board type")
+set(PICO_LWIP 1)
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
-
 project(project_main C CXX ASM)
 
 file(GLOB SOURCES "src/*.c")
@@ -46,6 +46,7 @@ pico_enable_stdio_uart(project_main 0)
 pico_enable_stdio_usb(project_main 1)
 
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib/pico-ssd1306")
+
 
 # Add the standard library to the build
 target_link_libraries(project_main
@@ -67,7 +68,7 @@ target_compile_definitions(project_main PRIVATE
     PICO_LWIP_IPV4_ENABLED
     PICO_LWIP_TCP_ENABLED
     PICO_LWIP_UDP_ENABLED
+    
 )
 
 pico_add_extra_outputs(project_main)
-

@@ -14,9 +14,9 @@ DisplayScreenDict screens[MAX_SCREENS] = {
         "Welcome Screen", {
             {
                 {"==== Bem-vindo! =======", 0, 0, 1},
-                {"", 0, 10, 1},
-                {"Botao A: Interacao", 0, 20, 1},
-                {"", 0, 25, 1},
+                {"Iniciando wifi...", 0, 10, 1},
+                {"", 0, 20, 1},
+                {"Botao A: Interacao", 0, 25, 1},
                 {"Botao B: Alterna Telas", 0, 40, 1},
                 {"=======================", 0, 55, 1}
             }

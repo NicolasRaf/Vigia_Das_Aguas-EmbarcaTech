@@ -68,6 +68,7 @@ void measurementControler() {
         // Verifica se o sensor está ligado (reading == 1)
         if (reading == 1) {
             float newReading = measureDistance();
+
             if (newReading != -1) {
                 // Armazena o novo valor no buffer circular
                 lastReadings[readingIndex] = newReading;
