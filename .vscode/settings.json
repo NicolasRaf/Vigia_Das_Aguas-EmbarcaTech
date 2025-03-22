@@ -73,6 +73,7 @@
         "sys.h": "c",
         "opt.h": "c",
         "sys_arch.h": "c",
-        "lwipopts.h": "c"
+        "lwipopts.h": "c",
+        "dns.h": "c"
     }
 }
