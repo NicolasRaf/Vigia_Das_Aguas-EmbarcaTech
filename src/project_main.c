@@ -105,6 +105,7 @@ int main() {
     showScreen(screens[0].screen);
     sleep_ms(3000);
     connectWifi();
+    create_tcp_connection();
 
     currentScreenName = "Main Screen";
     while (true) {

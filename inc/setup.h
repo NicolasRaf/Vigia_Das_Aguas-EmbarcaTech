@@ -10,6 +10,8 @@
 #include "ultrasonic.h"
 #include "leds_buttons.h"
 #include "sound.h"
+#include "lwipopts.h"
+#include "server.h"
 
 #define TRIG_PIN 17
 #define ECHO_PIN 16

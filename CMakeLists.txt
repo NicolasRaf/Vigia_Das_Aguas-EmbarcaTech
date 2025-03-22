@@ -68,7 +68,13 @@ target_compile_definitions(project_main PRIVATE
     PICO_LWIP_IPV4_ENABLED
     PICO_LWIP_TCP_ENABLED
     PICO_LWIP_UDP_ENABLED
-    
+    MEM_SIZE=8000
+    MEMP_NUM_TCP_PCB=10
+    MEMP_NUM_UDP_PCB=10
+    MEMP_NUM_TCP_SEG=64
+    MEMP_NUM_PBUF=64
+    WiFI_SSID=${WIFI_SSID}
+    WiFI_PASSWORD=${WiFI_PASSWORD}
 )
 
 pico_add_extra_outputs(project_main)

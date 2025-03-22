@@ -14,7 +14,7 @@
 #define I2C_SDA 14          // Pino SDA
 #define I2C_SCL 15          // Pino SCL
 #define MAX_LINES 6
-#define MAX_SCREENS 5
+#define MAX_SCREENS 4
 typedef struct {
     const char *text;
     uint32_t x;

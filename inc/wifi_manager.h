@@ -5,8 +5,8 @@
 #include "pico/cyw43_arch.h"
 #include "lwip/apps/http_client.h"
 
-#define WIFI_SSID "Amora"
-#define WIFI_PASSWORD "Naruto2021"
+#define WIFI_SSID "SSID"
+#define WIFI_PASSWORD "PASSWORD"
 
 
 extern char formatedIP[]; // Buffer para armazenar o IP formatado como string
