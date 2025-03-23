@@ -6,6 +6,7 @@
 #include "hardware/gpio.h"
 #include "hardware/timer.h"
 #include "leds_buttons.h"
+#include "server.h"
 
 #define TRIG_PIN 17
 #define ECHO_PIN 16

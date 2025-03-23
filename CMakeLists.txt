@@ -24,10 +24,11 @@ if (EXISTS ${picoVscode})
 endif()
 # ====================================================================================
 set(PICO_BOARD pico_w CACHE STRING "Board type")
+set(PICO_LWIP 1)
+set(MINHA_VARIAVEL )
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
-
 project(project_main C CXX ASM)
 
 file(GLOB SOURCES "src/*.c")
@@ -47,6 +48,7 @@ pico_enable_stdio_usb(project_main 1)
 
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib/pico-ssd1306")
 
+
 # Add the standard library to the build
 target_link_libraries(project_main
     pico_stdlib
@@ -63,11 +65,27 @@ target_include_directories(project_main PRIVATE
     ${CMAKE_SOURCE_DIR}/inc
 )
 
+# Obtendo as variáveis de ambiente
+set(WIFI_SSID $ENV{WIFI_SSID})
+set(WIFI_PASSWORD $ENV{WIFI_PASSWORD})
+set(PROXY_PORT $ENV{RAILWAY_PROXY_PORT})
+set(PROXY_HOST $ENV{RAILWAY_PROXY_HOST})
+
+# Definindo as opções de compilação
 target_compile_definitions(project_main PRIVATE
     PICO_LWIP_IPV4_ENABLED
     PICO_LWIP_TCP_ENABLED
     PICO_LWIP_UDP_ENABLED
+    MEM_SIZE=8000
+    MEMP_NUM_TCP_PCB=10
+    MEMP_NUM_UDP_PCB=10
+    MEMP_NUM_TCP_SEG=64
+    MEMP_NUM_PBUF=64
+    WIFI_SSID="${WIFI_SSID}"
+    WIFI_PASSWORD="${WIFI_PASSWORD}"
+    PROXY_PORT=${PROXY_PORT}
+    PROXY_HOST="${PROXY_HOST}"
 )
 
-pico_add_extra_outputs(project_main)
 
+pico_add_extra_outputs(project_main)

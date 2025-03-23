@@ -68,7 +68,8 @@ void measurementControler() {
         // Verifica se o sensor está ligado (reading == 1)
         if (reading == 1) {
             float newReading = measureDistance();
-            if (newReading != -1) {
+
+            if (newReading > -1) {
                 // Armazena o novo valor no buffer circular
                 lastReadings[readingIndex] = newReading;
                 readingIndex = (readingIndex + 1) % NUM_READINGS;
@@ -82,6 +83,10 @@ void measurementControler() {
                 }
                 averageDistance = sum / readingCount;
                 printf("Nova medição: %.2f cm, média: %.2f cm\n", newReading, averageDistance);
+                calcGrowthRateMultiPoints();
+
+                if (haveConnection || retries <= MAX_RETRIES) send_data_to_server(newReading);
+
             } else {
                 printf("Erro na medição!\n");
             }
@@ -92,7 +97,6 @@ void measurementControler() {
         measuring = false;
         startMeasurement = false;
     }
-    calcGrowthRateMultiPoints();
 }
 
 void readingCounter() {
