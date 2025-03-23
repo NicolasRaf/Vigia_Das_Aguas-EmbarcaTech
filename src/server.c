@@ -40,8 +40,10 @@ void create_tcp_connection() {
     retries++;
 
     // Substitua pelo seu proxy gerado pelo Railway
-    const char *proxy_host = "centerbeam.proxy.rlwy.net";  // Proxy gerado pelo Railway
-    int proxy_port = 13195;  // Porta do proxy
+    const char *proxy_host = PROXY_HOST;  // Proxy gerado pelo Railway
+    int proxy_port = PROXY_PORT;  // Porta do proxy
+
+    printf("Conectando ao proxy: %s:%d\n", proxy_host, proxy_port);
 
     ip_addr_t proxy_ip;
 
@@ -83,6 +85,7 @@ void send_data_to_server(float waterLevel) {
 
         printf("Conexão perdida. Tentando reconectar... (%d/%d)\n", retries, MAX_RETRIES);
         create_tcp_connection();  // Tenta reconectar
+        sleep_ms(1000);
     }
 
     // Enviar uma requisição ao servidor, agora através do proxy

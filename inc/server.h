@@ -8,6 +8,14 @@
 
 #define MAX_RETRIES 5 
 
+#ifndef PROXY_PORT
+    #define PROXY_PORT 1111
+#endif
+
+#ifndef PROXY_HOST
+    #define PROXY_HOST ""
+#endif
+
 extern bool haveConnection;
 extern int retries;
 
