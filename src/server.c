@@ -43,8 +43,6 @@ void create_tcp_connection() {
     const char *proxy_host = PROXY_HOST;  // Proxy gerado pelo Railway
     int proxy_port = PROXY_PORT;  // Porta do proxy
 
-    printf("Conectando ao proxy: %s:%d\n", proxy_host, proxy_port);
-
     ip_addr_t proxy_ip;
 
     // Resolução DNS para obter o IP do proxy
@@ -67,7 +65,6 @@ void create_tcp_connection() {
         printf("Conectado ao proxy!\n");
         haveConnection = true;
         tcp_recv(pcb, tcp_client_recv);
-        retries = 0;
     } else {
         printf("Falha na conexão (%d). Tentativa %d/%d\n", connect_err, retries, MAX_RETRIES);
         tcp_abort(pcb);
@@ -89,12 +86,13 @@ void send_data_to_server(float waterLevel) {
     }
 
     // Enviar uma requisição ao servidor, agora através do proxy
+    retries = 0;
     char request[256];
     snprintf(request, sizeof(request),
         "GET /update?waterLevel=%.2f HTTP/1.1\r\nHost: vigia_das_aguas-server.railway.internal\r\nConnection: keep-alive\r\n\r\n",
         waterLevel);
 
-    printf("Request enviada: %s\n", request);
+    printf("Request enviada para o servidor!\n");
 
     if (tcp_write(pcb, request, strlen(request), TCP_WRITE_FLAG_COPY) != ERR_OK) {
         printf("Erro ao enviar dados. Fechando conexão...\n");

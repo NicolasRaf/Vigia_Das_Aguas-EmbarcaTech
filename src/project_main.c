@@ -86,7 +86,7 @@ void updateScreen() {
                 }
 
                 sprintf(timeText, "Delay: %s ", time);
-                sprintf(wifiText, "IP: %s", formatedIP);
+                sprintf(wifiText, "IP: %s", (formatedIP[0] == '\0') ? "Desconectado" : formatedIP);
                 sprintf(serverConnectionText, "Server: %s", haveConnection ? "Conectado" : "Desconectado");
             
 
